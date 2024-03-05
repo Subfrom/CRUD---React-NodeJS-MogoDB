@@ -1,12 +1,17 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const connectDB = async () => {
     try {
-        await mongoose.connect('mongodb+srv://admin:1234@cluster.jmlwbrg.mongodb.net/?retryWrites=true&w=majority&appName=Cluster')
-        console.log('DB Connected')
-    } catch (err) {
-        console.log(err)
-    }
-}
+        await mongoose.connect('mongodb+srv://RI:RI@dentistbooking.y3xjl.mongodb.net/?retryWrites=true&w=majority&appName=DentistBooking', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
 
-module.exports = connectDB
+        console.log('MongoDB Connected...');
+    } catch (err) {
+        console.error(err.message);
+        process.exit(1);
+    }
+};
+
+module.exports = connectDB;

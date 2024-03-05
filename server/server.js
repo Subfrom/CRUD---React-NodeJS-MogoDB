@@ -6,7 +6,6 @@ const bodyParse = require('body-parser')
 
 const connectDB = require('./Config/db')
 
-
 const { readdirSync } = require('fs')
 // const productRouters = require('./Routes/product')
 // const authRouters = require('./Routes/auth')
@@ -27,6 +26,7 @@ app.use(bodyParse.json({ limit: '10mb' }))
 // Route 2
 // app.use('/api', productRouters)
 // app.use('/api', authRouters)
+
 
 // Route 3
 readdirSync('./Routes')
