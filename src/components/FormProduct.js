@@ -2,6 +2,8 @@ import React,{ useState, useEffect } from 'react'
 import axios from 'axios'
 import { GetData, Create, Delete } from '../functions/product'
 import { Link } from 'react-router-dom'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 const FormProduct = () => {
 
@@ -19,16 +21,33 @@ const FormProduct = () => {
   }
 
   const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value
-    })
+
+    if(e.target.name === 'file')
+    {
+      setForm({
+        ...form,
+        [e.target.name]: e.target.files[0]
+      })
+    }else{
+      setForm({
+        ...form,
+        [e.target.name]: e.target.value
+      })
+    }
+
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    Create(form)  
+    const formWithFileData = new FormData()
+
+    for (const key in form)
+    {
+      formWithFileData.append(key, form[key])
+    }
+
+    Create(formWithFileData)  
     .then((response) => {
         console.log(response)
         loadData()
@@ -54,11 +73,13 @@ const FormProduct = () => {
       .catch((error) => console.log(error))
   }
 
+
+
   return (
     <div>
       FormProject
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Name</label>
           <input type="text" className="form-control" id="name" name='name' placeholder='name' onChange={e => handleChange(e)}/>
@@ -71,14 +92,19 @@ const FormProduct = () => {
           <label htmlFor="price" className="form-label">Price</label>
           <input type="text" className="form-control" id="price" name='price' placeholder='price' onChange={e => handleChange(e)}/>
         </div>
+        <div className="mb-3">
+          <label htmlFor="price" className="form-label">Price</label>
+          <input type="file" className="form-control" id="file" name='file' onChange={e => handleChange(e)}/>
+        </div>
         <button type="submit" className="btn btn-primary">Submit</button>
       </form>
 
 
-      <table className="table">
+      <table className="table table-striped table-hover">
         <thead>
           <tr>
             <th scope="col">#</th>
+            <th scope="col">image</th>
             <th scope="col">Name</th>
             <th scope="col">Detail</th>
             <th scope="col">Price</th>
@@ -91,6 +117,7 @@ const FormProduct = () => {
               return (
                 <tr key={index}>
                   <th scope="row">{index + 1}</th>
+                  <td>{product.image}</td>
                   <td>{product.name}</td>
                   <td>{product.detail}</td>
                   <td>{product.price}</td>

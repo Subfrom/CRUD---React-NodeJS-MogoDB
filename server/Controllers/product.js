@@ -47,8 +47,17 @@ exports.update = async (req, res) => {
     try {
         // code
         const id = req.params.id
+        var newData = req.body
+        if (typeof req.file !== 'undefined')
+        {
+            newData.image = req.file.filename
+            await fs.unlink('./uploads/' + newData.oldImage, function (err) {
+                if (err) throw err;
+                console.log('File deleted!');
+            });
+        }
         const updated = await Product
-            .findOneAndUpdate({ _id: id }, req.body, { new: true })
+            .findOneAndUpdate({ _id: id }, newData, { new: true })
             .exec()
         res.send(updated)
 
