@@ -8,13 +8,13 @@ exports.register = async (req, res) => {
         const { username, email, password } = req.body
         // simple validation
         if (!username || !email || !password) {
-            return res.status(400).json({ msg: 'Please enter all fields' })
+            return res.send('Please enter all fields').status(400)
         }
         // check for existing user
         var user = await User.findOne({ email, username })
 
         if (user){
-            return res.status(400).json({ msg: 'User already exists' })
+            return res.send('User Already Exists!!!').status(400)
         }
 
         const salt = await bcrypt.genSalt(10)
@@ -29,7 +29,7 @@ exports.register = async (req, res) => {
 
         await user.save()
 
-        res.status(200).json({ msg: 'Register Success' })
+        res.send('Register Success!!').status(200)
     }
     catch (err) {
         // error
