@@ -1,6 +1,7 @@
 import React,{ useEffect,useState } from 'react'
 import { useParams,useNavigate } from 'react-router-dom'
 import { Read, Update } from '../functions/product'
+import { TextField, Button, Grid, IconButton, Tooltip } from '@mui/material'
 
 const FormEditProduct = () => {
     const params = useParams()
@@ -57,7 +58,7 @@ const FormEditProduct = () => {
 
         Update(params.id, formWithFileData)  
         .then((response) => {
-            navigate('/')
+            navigate('/admin/tableproducts')
             })
             .catch((error) => console.log(error))
     }
@@ -67,23 +68,24 @@ const FormEditProduct = () => {
     <div>
         FormEditProduct
         <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name</label>
-          <input type="text" className="form-control" id="name" name='name' placeholder='name' onChange={e => handleChange(e)} value={form.name}/>
+        
+        <div>
+            <TextField id="name" label="name" variant="outlined" name='name' onChange={e => handleChange(e)} value={form.name}/>
         </div>
-        <div className="mb-3">
-          <label htmlFor="detail" className="form-label">Detail</label>
-          <input type="text" className="form-control" id="detail" name='detail' placeholder='detail' onChange={e => handleChange(e)} value={form.detail}/>
+        <br />
+        <div>
+            <TextField id="detail" label="detail" variant="outlined" name='detail' onChange={e => handleChange(e)} value={form.detail}/>
         </div>
-        <div className="mb-3">
-          <label htmlFor="price" className="form-label">Price</label>
-          <input type="text" className="form-control" id="price" name='price' placeholder='price' onChange={e => handleChange(e)} value={form.price}/>
+        <br />
+        <div>
+            <TextField type='file' id="file" variant="outlined" name='file' onChange={e => handleChange(e)}/>
         </div>
-        <div className="mb-3">
-          <label htmlFor="price" className="form-label">Price</label>
-          <input type="file" className="form-control" id="file" name='file' onChange={e => handleChange(e)}/>
-        </div>        
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <br />
+        <div>
+            <TextField type='number' id="price" label="price" variant="outlined" name='price' onChange={e => handleChange(e)} value={form.price}/>
+        </div>
+        <br />
+        <Button type='submit' variant="outlined">Submit</Button>
       </form>
     </div>
   )

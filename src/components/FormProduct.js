@@ -2,8 +2,11 @@ import React,{ useState, useEffect } from 'react'
 import axios from 'axios'
 import { GetData, Create, Delete } from '../functions/product'
 import { Link } from 'react-router-dom'
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min";
+import { TextField, Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Grid, IconButton, Tooltip } from '@mui/material'
+// icon
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
 
 const FormProduct = () => {
 
@@ -79,58 +82,88 @@ const FormProduct = () => {
     <div>
       FormProject
 
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name</label>
-          <input type="text" className="form-control" id="name" name='name' placeholder='name' onChange={e => handleChange(e)}/>
+      {/* <form onSubmit={handleSubmit} encType="multipart/form-data">
+
+        <div>
+          <TextField id="name" label="name" variant="outlined" name='name' onChange={e => handleChange(e)}/>
         </div>
-        <div className="mb-3">
-          <label htmlFor="detail" className="form-label">Detail</label>
-          <input type="text" className="form-control" id="detail" name='detail' placeholder='detail' onChange={e => handleChange(e)}/>
+        <br />
+        <div>
+          <TextField id="detail" label="detail" variant="outlined" name='detail' onChange={e => handleChange(e)}/>
         </div>
-        <div className="mb-3">
-          <label htmlFor="price" className="form-label">Price</label>
-          <input type="text" className="form-control" id="price" name='price' placeholder='price' onChange={e => handleChange(e)}/>
+        <br />
+        <div>
+          <TextField type='file' id="file" variant="outlined" name='file' onChange={e => handleChange(e)}/>
         </div>
-        <div className="mb-3">
-          <label htmlFor="price" className="form-label">Price</label>
-          <input type="file" className="form-control" id="file" name='file' onChange={e => handleChange(e)}/>
+        <br />
+        <div>
+          <TextField type='number' id="price" label="price" variant="outlined" name='price' onChange={e => handleChange(e)}/>
         </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
+        <br />
+        <Button type='submit' variant="outlined">Submit</Button>
       </form>
+      <br /> */}
 
-
-      <table className="table table-striped table-hover">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">image</th>
-            <th scope="col">Name</th>
-            <th scope="col">Detail</th>
-            <th scope="col">Price</th>
-            <th scope="col">Option</th>
-          </tr>
-        </thead>
-        <tbody>
+    <Grid container spacing={3}>
+      <Grid item xs>
+        
+      </Grid>
+      <Grid item xs={6}>
+        
+      </Grid>
+      <Grid item xs textAlign={'end'}>
+        <Link to="/add">
+          <Button variant="outlined" startIcon={<AddCircleOutlineIcon />}>
+            Create
+          </Button>
+        </Link>
+      </Grid>
+    </Grid>
+    <br />
+    <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <TableHead>
+          <TableRow>
+            <TableCell>#</TableCell>
+            <TableCell>image</TableCell>
+            <TableCell>Name</TableCell>
+            <TableCell>Detail</TableCell>
+            <TableCell>Price</TableCell>
+            <TableCell>Option</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
           {
             products ? products.map((product, index) => {
               return (
-                <tr key={index}>
-                  <th scope="row">{index + 1}</th>
-                  <td>{product.image}</td>
-                  <td>{product.name}</td>
-                  <td>{product.detail}</td>
-                  <td>{product.price}</td>
-                  <td>
-                    <Link to={`/edit/${product._id}`}><button className="btn btn-warning">Edit</button></Link>
-                    <button className="btn btn-danger" onClick={() => handleDelete(product._id)}>Delete</button>
-                  </td>
-                </tr>
+                <TableRow
+                  key={index}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell scope="row">{index + 1}</TableCell>
+                  <TableCell>{product.image}</TableCell>
+                  <TableCell>{product.name}</TableCell>
+                  <TableCell>{product.detail}</TableCell>
+                  <TableCell>{product.price}</TableCell>
+                  <TableCell>
+                     <Tooltip title="Edit">
+                        <IconButton>
+                          <Link to={`/edit/${product._id}`}><EditIcon fontSize="large" color='warning' /></Link>
+                        </IconButton>
+                      </Tooltip>
+                     <Tooltip title="Delete">
+                        <IconButton>
+                          <DeleteForeverIcon fontSize="large" color='error' onClick={() => handleDelete(product._id)} />
+                        </IconButton>
+                      </Tooltip>
+                  </TableCell>
+                </TableRow>
               )
             }) : null
           }
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
+    </TableContainer>
     </div>
   )
 }
