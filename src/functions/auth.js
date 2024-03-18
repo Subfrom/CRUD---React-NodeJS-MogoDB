@@ -12,3 +12,10 @@ export const currentUser = async (authtoken) =>
     {},
     { headers: { authtoken } }
   );
+
+export const currentAdmin = async (authtoken) =>
+  await axios.post(
+    process.env.REACT_APP_API + "/currentAdmin",
+    {},
+    { headers: { authtoken } }
+  );

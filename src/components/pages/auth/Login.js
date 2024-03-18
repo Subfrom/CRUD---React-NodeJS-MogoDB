@@ -73,9 +73,9 @@ export default function Login() {
 
   const roleRedirect = (role) => {
     if (role === "admin") {
-      navigate("/admin");
+      navigate("/admin/index");
     } else {
-      navigate("/user");
+      navigate("/user/index");
     }
   }
 

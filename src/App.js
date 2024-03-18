@@ -16,6 +16,7 @@ import UserRoute from "./routes/UserRoute";
 import { currentUser } from "./functions/auth";
 import { useDispatch } from "react-redux";
 import { login } from "./store/userSlice";
+import Notfound from "./components/pages/Notfound";
 
 function App() {
   const dispatch = useDispatch();
@@ -39,40 +40,61 @@ function App() {
         <CssBaseline />
 
         <Routes>
+          <Route
+            path="*"
+            element={
+              <Notfound text="The page you’re looking for doesn’t exist." />
+            }
+          />
+
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
 
+          <Route
+            path="/user/index"
+            element={
+              <UserRoute>
+                <UserHome />
+              </UserRoute>
+            }
+          />
 
-          <Route path="/user/index" element={
-            <UserRoute>
-              <UserHome />
-            </UserRoute>
-          } />
+          <Route
+            path="/admin/index"
+            element={
+              <AdminRoute>
+                <AdminHome />
+              </AdminRoute>
+            }
+          />
 
-          <Route path="/admin/tableproducts" element={
-            <AdminRoute>
-              <FormProduct />
-            </AdminRoute>
-          } />
+          <Route
+            path="/admin/tableproducts"
+            element={
+              <AdminRoute>
+                <FormProduct />
+              </AdminRoute>
+            }
+          />
 
-          <Route path="/admin/index" element={
-            <AdminRoute>
-              <AdminHome />
-            </AdminRoute>
-          } />
+          <Route
+            path="/add"
+            element={
+              <AdminRoute>
+                <FormAddProduct />
+              </AdminRoute>
+            }
+          />
 
-          <Route path="/add" element={
-            <AdminRoute>
-            <FormAddProduct />
-          </AdminRoute>
-          } />
-
-          <Route path="/edit/:id" element={
-            <AdminRoute>
-              <FormEditProduct />
-            </AdminRoute>
-          } />
-          </Routes>
+          <Route
+            path="/edit/:id"
+            element={
+              <AdminRoute>
+                <FormEditProduct />
+              </AdminRoute>
+            }
+          />
+        </Routes>
         {/* <TestRedux1 />
       <hr/>
       <TestRedux2 /> */}
