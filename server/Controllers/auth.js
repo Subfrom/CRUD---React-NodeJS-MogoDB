@@ -56,7 +56,8 @@ exports.login = async (req, res) => {
             var payload = {
                 user: {
                     username: user.username,
-                    email: user.email
+                    email: user.email,
+                    role: user.role
                 }
             }
 
@@ -70,6 +71,22 @@ exports.login = async (req, res) => {
 
     }
     catch (err) {
+        // error
+        console.log(err)
+        res.status(500).send('Server Error')
+    }
+}
+
+exports.currentUser = async (req, res) => {
+    try {
+        const user = await User.findOne({ email: req.user.email }).select('-password').exec()
+
+        if (user) {
+            res.status(200).json({ user: user })
+        } else {
+            res.status(400).json({ msg: 'User not found' })
+        }
+    } catch (err) {
         // error
         console.log(err)
         res.status(500).send('Server Error')

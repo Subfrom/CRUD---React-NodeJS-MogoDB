@@ -16,7 +16,7 @@ connectDB()
 
 app.use(morgan('dev'))
 app.use(cors())
-app.use(bodyParse.json({ limit: '10mb' }))
+app.use(bodyParse.json({ limit: '100mb' }))
 
 // Route 1
 // app.get('/product', (req, res) => {

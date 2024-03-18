@@ -5,9 +5,6 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    tel: {
-        type: String
-    },
     email: {
         type: String,
         required: true
@@ -17,7 +14,8 @@ const userSchema = mongoose.Schema({
         required: true
     },
     role: {
-        type: String
+        type: String,
+        default: 'user'
     }
 }, { timestamps: true })
 
