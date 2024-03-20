@@ -13,7 +13,8 @@ export const userSlice = createSlice({
       state.user = action.payload
     },
     logout: (state) => {
-      state.value = 'subfrom logout'
+      state.user = []
+      localStorage.clear()
     },
     incrementByAmount: (state, action) => {
       state.value += action.payload

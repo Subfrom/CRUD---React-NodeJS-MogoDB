@@ -17,6 +17,7 @@ import { currentUser } from "./functions/auth";
 import { useDispatch } from "react-redux";
 import { login } from "./store/userSlice";
 import Notfound from "./components/pages/Notfound";
+import ResponsiveAppBar from "./layout/ResponsiveAppBar";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,16 @@ function App() {
             path="*"
             element={
               <Notfound text="The page you’re looking for doesn’t exist." />
+            }
+          />
+
+          <Route
+            path="/"
+            element={
+              <>
+              <ResponsiveAppBar />
+              <h1>Home Page</h1>
+              </>
             }
           />
 
