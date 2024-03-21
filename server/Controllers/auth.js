@@ -92,3 +92,39 @@ exports.currentUser = async (req, res) => {
         res.status(500).send('Server Error')
     }
 }
+
+exports.loginLine = async (req, res) => {
+  try {
+      
+      const { userId, displayName, pictureUrl } = req.body;
+
+      var data = {
+        username: userId,
+        displayName: displayName,
+        picture: pictureUrl,
+      }
+
+      var user = await User.findOneAndUpdate({ username: userId }, { new: true });
+      console.log(user);
+      if(user)
+      {
+        console.log('User Updated');
+      }else{
+        user = new User(data);
+        await user.save();
+      }
+
+      var payload = {
+        user
+      };
+
+      jwt.sign(payload, "jwtsecret", { expiresIn: "1d" }, (err, token) => {
+        if (err) throw err;
+        res.status(200).json({ token, payload });
+      });
+  } catch (err) {
+    // error
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+};

@@ -1,4 +1,4 @@
-import * as React from "react";
+import react,{ useEffect } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -19,6 +19,8 @@ import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { login as LoginRedux } from "../../../store/userSlice";
+
+import liff from "@line/liff";
 
 function Copyright(props) {
   return (
@@ -46,6 +48,18 @@ export default function Login() {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    liff.init({ liffId: process.env.REACT_APP_LINE_LIFF_ID })
+  }, []);
+
+  const handleLoginline = () => {
+    try{
+      liff.login();
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -154,6 +168,15 @@ export default function Login() {
                 sx={{ mt: 3, mb: 2 }}
               >
                 Sign In
+              </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="success"
+                onClick={handleLoginline}
+              >
+                Sign In With Line
               </Button>
               <Grid container>
                 <Grid item xs>

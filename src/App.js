@@ -13,6 +13,7 @@ import ResponsiveAppBar from "./layout/ResponsiveAppBar";
 // Page
 import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
+import Line from "./components/pages/auth/Line";
 
 // Routes
 import AdminRoute from "./routes/AdminRoute";
@@ -35,7 +36,7 @@ function App() {
 
   const IDToken = localStorage.getItem('token');
   currentUser(IDToken).then(res => {
-    console.log(res.data);
+    // console.log(res.data);
     dispatch(login({
       username: res.data.username,
       email: res.data.email,
@@ -71,6 +72,7 @@ function App() {
 
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/line" element={<Line />} />
 
           <Route
             path="/user/index"

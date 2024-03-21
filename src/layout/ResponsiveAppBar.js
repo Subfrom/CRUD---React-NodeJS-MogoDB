@@ -37,12 +37,7 @@ const pages = [
     title: "Contract",
     icon: "",
     to: "/contract",
-  },
-  {
-    title: "Roitai",
-    icon: "",
-    to: "/roitai",
-  },
+  }
 ];
 
 const authen = [

@@ -6,6 +6,9 @@ export const register = async (form) =>
 export const login = async (form) => 
     await axios.post(process.env.REACT_APP_API + '/login', form)
 
+export const loginLing = async (form) => 
+    await axios.post(process.env.REACT_APP_API + '/loginline', form)
+
 export const currentUser = async (authtoken) =>
   await axios.post(
     process.env.REACT_APP_API + "/currentUser",
