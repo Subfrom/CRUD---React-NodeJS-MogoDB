@@ -7,17 +7,28 @@ import { CssBaseline, Box } from "@mui/material";
 import SideBar from "./layout/SideBar";
 import TestRedux1 from "./components/TestRedux1";
 import TestRedux2 from "./components/TestRedux2";
+import Notfound from "./components/pages/Notfound";
+import ResponsiveAppBar from "./layout/ResponsiveAppBar";
+
+// Page
 import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
-import AdminHome from "./components/pages/admin/AdminHome";
-import UserHome from "./components/pages/user/UserHome";
+
+// Routes
 import AdminRoute from "./routes/AdminRoute";
 import UserRoute from "./routes/UserRoute";
+
+// Admin
+import AdminHome from "./components/pages/admin/AdminHome";
+import ManageUser from "./components/pages/admin/ManageUser";
+
+// User
+import UserHome from "./components/pages/user/UserHome";
+
+// function
 import { currentUser } from "./functions/auth";
 import { useDispatch } from "react-redux";
 import { login } from "./store/userSlice";
-import Notfound from "./components/pages/Notfound";
-import ResponsiveAppBar from "./layout/ResponsiveAppBar";
 
 function App() {
   const dispatch = useDispatch();
@@ -75,6 +86,15 @@ function App() {
             element={
               <AdminRoute>
                 <AdminHome />
+              </AdminRoute>
+            }
+          />
+
+          <Route
+            path="/admin/manageuser"
+            element={
+              <AdminRoute>
+                <ManageUser />
               </AdminRoute>
             }
           />

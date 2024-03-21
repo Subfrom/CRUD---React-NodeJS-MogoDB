@@ -88,7 +88,7 @@ const SideBar = () => {
                 </Box>
               )}
 
-              <Link to="/admin" className="menu-bars">
+              <Link to="/admin/index" className="menu-bars">
                 <MenuItem icon={<HomeOutlinedIcon />}>Dashboard</MenuItem>
               </Link>
 
@@ -106,7 +106,7 @@ const SideBar = () => {
               </SubMenu>
 
               <SubMenu label="Manage" icon={<PeopleOutlinedIcon />}>
-                <Link to={"/admin/manage"} className="menu-bars">
+                <Link to={"/admin/manageuser"} className="menu-bars">
                   <MenuItem>User</MenuItem>
                 </Link>
                 <MenuItem> Admin</MenuItem>
