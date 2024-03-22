@@ -1,6 +1,8 @@
 const User = require('../Models/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
+const { notify } = require('../Functions/Notify')
+require('dotenv').config()
 
 exports.register = async (req, res) => {
     try {
@@ -60,6 +62,11 @@ exports.login = async (req, res) => {
                     role: user.role
                 }
             }
+
+            const token = process.env.LINE_NOTIFY_TOKEN;
+
+            const text = 'User: ' + user.username + ' has logged in'
+            await notify(token, text);
 
             jwt.sign(payload, 'jwtsecret', { expiresIn: '1d' }, (err, token) => {
                 if (err) throw err
