@@ -15,3 +15,11 @@ exports.notify = async (token, message) => {
         console.log(error);
     }
 }
+
+exports.getIPClient = async (req) => {
+  const ip = req.connection.remoteAddress;
+  const ipV4 = ip.split(':');
+  const checkIP = ipV4[ipV4.length - 1];
+
+  return checkIP;
+}

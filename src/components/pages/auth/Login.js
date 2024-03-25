@@ -13,14 +13,20 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-import { login } from "../../../functions/auth";
+import { login, loginFacebook } from "../../../functions/auth";
 
 import { useNavigate } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { login as LoginRedux } from "../../../store/userSlice";
 
+
+// ====== LINE LOGIN ======
 import liff from "@line/liff";
+
+// ====== FACEBOOK LOGIN ======
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+import { FaFacebook, FaLine } from "react-icons/fa";
 
 function Copyright(props) {
   return (
@@ -93,6 +99,23 @@ export default function Login() {
     }
   }
 
+  const responseFacebook = async (response) => {
+    console.log(response);
+    await loginFacebook(response).then((res) => {
+      alert(res.data);
+      dispatch(LoginRedux({
+        username: res.data.payload.user.username,
+        email: res.data.payload.user.email,
+        role: res.data.payload.user.role,
+        token: res.data.token
+      }));
+      localStorage.setItem("token", res.data.token);
+      roleRedirect(res.data.payload.user.role);
+    }).catch((err) => {
+      console.log(err);
+    });
+  };
+
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: "100vh" }}>
@@ -104,8 +127,7 @@ export default function Login() {
           md={7}
           sx={{
             // backgroundImage: "url(https://source.unsplash.com/random?wallpapers)",
-            backgroundImage:
-              "url(/assets/bgside.jpg)",
+            backgroundImage: "url(/assets/bgside.jpg)",
             backgroundRepeat: "no-repeat",
             backgroundColor: (t) =>
               t.palette.mode === "light"
@@ -175,9 +197,30 @@ export default function Login() {
                 variant="contained"
                 color="success"
                 onClick={handleLoginline}
+                startIcon={<FaLine />}
               >
                 Sign In With Line
               </Button>
+
+              <FacebookLogin
+                appId="420377163732225"
+                autoLoad={false}
+                fields="name,email,picture"
+                callback={responseFacebook}
+                render={(renderProps) => (
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 2, mb: 2 }}
+                    onClick={renderProps.onClick}
+                    startIcon={<FaFacebook />}
+                  >
+                    Sign In With Facebook
+                  </Button>
+                )}
+              />
+
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">

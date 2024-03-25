@@ -9,6 +9,9 @@ export const login = async (form) =>
 export const loginLing = async (form) => 
     await axios.post(process.env.REACT_APP_API + '/loginline', form)
 
+export const loginFacebook = async (form) => 
+    await axios.post(process.env.REACT_APP_API + '/loginfacebook', form)
+
 export const currentUser = async (authtoken) =>
   await axios.post(
     process.env.REACT_APP_API + "/currentUser",

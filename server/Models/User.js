@@ -20,6 +20,9 @@ const userSchema = mongoose.Schema({
     displayName: {
         type: String,
     },
+    ip: {
+        type: String,
+    },
 }, { timestamps: true })
 
 module.exports = mongoose.models.users || mongoose.model('users', userSchema)

@@ -69,6 +69,7 @@ const ManageUser = () => {
               <TableCell>#</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Role</TableCell>
+              <TableCell>IP</TableCell>
               <TableCell>UpdatedAt</TableCell>
               <TableCell>Option</TableCell>
             </TableRow>
@@ -94,6 +95,7 @@ const ManageUser = () => {
                           ))}
                         </Select>
                       </TableCell>
+                      <TableCell>{user.ip}</TableCell>
                       <TableCell>{user.updatedAt}</TableCell>
                       <TableCell>
                         {/* <Tooltip title="Edit">

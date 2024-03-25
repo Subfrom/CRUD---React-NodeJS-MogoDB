@@ -1,7 +1,7 @@
 const User = require('../Models/User')
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { notify } = require('../Functions/Notify')
+const { notify, getIPClient } = require('../Functions/Notify')
 require('dotenv').config()
 
 exports.register = async (req, res) => {
@@ -43,13 +43,14 @@ exports.register = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         // code
+        const ip = await getIPClient(req);
         const { email, password } = req.body
         // simple validation
         if (!email || !password) {
             return res.status(400).json({ msg: 'Please enter all fields' })
         }
         // check for existing user
-        var user = await User.findOneAndUpdate({ email }, { new: true })
+        var user = await User.findOneAndUpdate({ email }, { ip: ip }, { new: true })
         if (user)
         {
             const isMatch = await bcrypt.compare(password, user.password)
@@ -65,7 +66,7 @@ exports.login = async (req, res) => {
 
             const token = process.env.LINE_NOTIFY_TOKEN;
 
-            const text = 'User: ' + user.username + ' has logged in'
+            const text = 'User: ' + user.username + ' has logged in from IP: ' + ip;
             await notify(token, text);
 
             jwt.sign(payload, 'jwtsecret', { expiresIn: '1d' }, (err, token) => {
@@ -73,6 +74,9 @@ exports.login = async (req, res) => {
                 res.status(200).json({ token, payload })
             })
         }else{
+            const text =
+              "User: " + email + " has tried to login from IP: " + ip;
+            await notify(token, text);
             return res.status(400).json({ msg: 'User not Found' })
         }
 
@@ -112,6 +116,45 @@ exports.loginLine = async (req, res) => {
       }
 
       var user = await User.findOneAndUpdate({ username: userId }, { new: true });
+      console.log(user);
+      if(user)
+      {
+        console.log('User Updated');
+      }else{
+        user = new User(data);
+        await user.save();
+      }
+
+      var payload = {
+        user
+      };
+
+      jwt.sign(payload, "jwtsecret", { expiresIn: "1d" }, (err, token) => {
+        if (err) throw err;
+        res.status(200).json({ token, payload });
+      });
+  } catch (err) {
+    // error
+    console.log(err);
+    res.status(500).send("Server Error");
+  }
+};
+
+exports.loginFacebook = async (req, res) => {
+  try {
+      
+      const { userID, name, email } = req.body;
+
+      var data = {
+        username: userID,
+        displayName: name,
+        email: email,
+      };
+
+      var user = await User.findOneAndUpdate(
+        { username: userID },
+        { new: true }
+      );
       console.log(user);
       if(user)
       {
