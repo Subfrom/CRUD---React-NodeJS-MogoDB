@@ -28,6 +28,8 @@ import liff from "@line/liff";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import { FaFacebook, FaLine } from "react-icons/fa";
 
+import { toast } from "react-toastify";
+
 function Copyright(props) {
   return (
     <Typography
@@ -77,7 +79,7 @@ export default function Login() {
     };
 
     login(form).then((response) => {
-      alert(response.data);
+      toast.success(response.data.payload.user.username + ' is logged in', { position: "top-left" });
       dispatch(LoginRedux({
         username: response.data.payload.user.username,
         email: response.data.payload.user.email,
@@ -87,7 +89,7 @@ export default function Login() {
       localStorage.setItem("token", response.data.token);
       roleRedirect(response.data.payload.user.role);
     }).catch((err) => {
-      console.log(err);
+      toast.error(err.response.data, { position: "top-left" });
     });
   };
 

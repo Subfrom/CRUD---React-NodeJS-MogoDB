@@ -12,6 +12,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { toast } from "react-toastify";
 
 import { register } from "../../../functions/auth";
 
@@ -49,9 +50,13 @@ export default function Register() {
     };
 
     register(form).then((response) => {
-      alert(response.data);
+      toast.success(response.data.payload.user.username + " is registered", {
+        position: "top-left",
+      });
     }).catch((err) => {
-      console.log(err);
+      toast.error(err.response.data.error, {
+        position: "top-left",
+      });
     });
   };
 
@@ -91,7 +96,7 @@ export default function Register() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in
+              Sign Up
             </Typography>
             <Box
               component="form"
@@ -137,7 +142,7 @@ export default function Register() {
                 variant="contained"
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign In
+                Sign Up
               </Button>
               <Grid container>
                 <Grid item xs>

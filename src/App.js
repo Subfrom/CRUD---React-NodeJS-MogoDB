@@ -10,6 +10,10 @@ import TestRedux2 from "./components/TestRedux2";
 import Notfound from "./components/pages/Notfound";
 import ResponsiveAppBar from "./layout/ResponsiveAppBar";
 
+// notify
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 // Page
 import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
@@ -51,6 +55,7 @@ function App() {
     <BrowserRouter>
       <>
         <CssBaseline />
+        <ToastContainer />
 
         <Routes>
           <Route

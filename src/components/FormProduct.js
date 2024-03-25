@@ -8,6 +8,8 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 
+import { toast } from "react-toastify";
+
 const FormProduct = () => {
 
   const [products, setProducts] = useState([])
@@ -61,7 +63,7 @@ const FormProduct = () => {
   const handleDelete = async (id) => {
     Delete(id)
       .then((response) => {
-        console.log(response)
+        toast.success(response.data.name + ' is deleted', { position: "top-left" });
         loadData()
       })
       .catch((error) => console.log(error))
