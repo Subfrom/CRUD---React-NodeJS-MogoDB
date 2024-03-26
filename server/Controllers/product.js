@@ -26,6 +26,22 @@ exports.list = async (req, res) => {
         res.status(500).send('Server Error')
     }
 }
+exports.listby = async (req, res) => {
+    try {
+        // code
+        const { limit, sort, order } = req.body
+
+        const producted = await Product.find({})
+        .limit(limit)
+        .sort([[sort, order]])
+        .exec();
+        res.send(producted)
+    } catch (err) {
+        // error
+        console.log(err)
+        res.status(500).send('Server Error')
+    }
+}
 exports.create = async (req, res) => {
     try {
         // code

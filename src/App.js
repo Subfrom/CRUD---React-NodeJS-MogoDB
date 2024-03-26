@@ -34,6 +34,7 @@ import UserHome from "./components/pages/user/UserHome";
 import { currentUser } from "./functions/auth";
 import { useDispatch } from "react-redux";
 import { login } from "./store/userSlice";
+import Homepage from "./components/pages/Homepage";
 
 function App() {
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ function App() {
             element={
               <>
               <ResponsiveAppBar />
-              <h1>Home Page</h1>
+              <Homepage />
               </>
             }
           />

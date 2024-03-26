@@ -8,6 +8,14 @@ export const Create = async (form) => {
     await axios.post(process.env.REACT_APP_API + '/product', form)
 }
 
+export const listby = async (limit, sort, order) => 
+    await axios.post(process.env.REACT_APP_API + '/productby', 
+    {
+        limit,
+        sort,
+        order
+    })
+
 export const GetData = async () => {
    return await axios.get(process.env.REACT_APP_API + '/product')
 }

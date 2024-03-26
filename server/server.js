@@ -17,6 +17,7 @@ connectDB()
 app.use(morgan('dev'))
 app.use(cors())
 app.use(bodyParse.json({ limit: '100mb' }))
+app.use("/uploads", express.static("uploads"));
 
 // Route 1
 // app.get('/product', (req, res) => {

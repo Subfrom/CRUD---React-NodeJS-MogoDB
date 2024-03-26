@@ -20,7 +20,7 @@ const FormProduct = () => {
   }, [])
 
   const loadData = async () => {
-    GetData()
+    await GetData()
         .then((response) => setProducts(response.data))
         .catch((error) => console.log(error))
   }
