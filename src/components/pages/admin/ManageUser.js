@@ -27,7 +27,7 @@ const ManageUser = () => {
 
     const [users, setUsers] = useState([])
     const { user } = useSelector((state) => ({...state}));
-    console.log(user)
+    // console.log(user)
 
     useEffect(() => {
         loadUsers(user.user.token)

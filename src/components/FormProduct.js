@@ -54,7 +54,7 @@ const FormProduct = () => {
 
     Create(formWithFileData)  
     .then((response) => {
-        console.log(response)
+        // console.log(response)
         loadData()
       })
       .catch((error) => console.log(error))

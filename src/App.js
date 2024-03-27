@@ -1,14 +1,24 @@
+import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import ResponsiveAppBar from "./layout/ResponsiveAppBar";
+
+// Header
+import HeaderBar from "./layout/HeaderBar";
+import { CssBaseline } from "@mui/material";
+
+// Sidebar
+import SideBar from "./layout/SideBar";
+
+// Admin
+import AdminHome from "./components/pages/admin/AdminHome";
+import ManageUser from "./components/pages/admin/ManageUser";
 import FormProduct from "./components/FormProduct";
 import FormEditProduct from "./components/FormEditProduct";
 import FormAddProduct from "./components/FormAddProduct";
-import HeaderBar from "./layout/HeaderBar";
-import { CssBaseline, Box } from "@mui/material";
-import SideBar from "./layout/SideBar";
-import TestRedux1 from "./components/TestRedux1";
-import TestRedux2 from "./components/TestRedux2";
-import Notfound from "./components/pages/Notfound";
-import ResponsiveAppBar from "./layout/ResponsiveAppBar";
+
+// User
+import UserHome from "./components/pages/user/UserHome";
 
 // notify
 import { ToastContainer, toast } from "react-toastify";
@@ -18,40 +28,41 @@ import "react-toastify/dist/ReactToastify.css";
 import Register from "./components/pages/auth/Register";
 import Login from "./components/pages/auth/Login";
 import Line from "./components/pages/auth/Line";
+import Notfound from "./components/pages/Notfound";
 
 // Routes
 import AdminRoute from "./routes/AdminRoute";
 import UserRoute from "./routes/UserRoute";
-
-// Admin
-import AdminHome from "./components/pages/admin/AdminHome";
-import ManageUser from "./components/pages/admin/ManageUser";
-
-// User
-import UserHome from "./components/pages/user/UserHome";
 
 // function
 import { currentUser } from "./functions/auth";
 import { useDispatch } from "react-redux";
 import { login } from "./store/userSlice";
 import Homepage from "./components/pages/Homepage";
+import Profile from "./components/pages/profile/Profile";
+
+// Test Redux
+import TestRedux1 from "./components/TestRedux1";
+import TestRedux2 from "./components/TestRedux2";
+
 
 function App() {
+
   const dispatch = useDispatch();
 
   const IDToken = localStorage.getItem('token');
-  currentUser(IDToken).then(res => {
-    // console.log(res.data);
+
+  currentUser(IDToken).then((res) => {
     dispatch(login({
-      username: res.data.username,
       email: res.data.email,
+      username: res.data.username,
       role: res.data.role,
-      token: IDToken
-    }));
-  }
-  ).catch(err => {
+      token: IDToken,
+    }))
+  }).catch((err) => {
     console.log(err);
-  });
+  })
+
   return (
     <BrowserRouter>
       <>
@@ -70,8 +81,8 @@ function App() {
             path="/"
             element={
               <>
-              <ResponsiveAppBar />
-              <Homepage />
+                <ResponsiveAppBar />
+                <Homepage />
               </>
             }
           />
@@ -85,6 +96,15 @@ function App() {
             element={
               <UserRoute>
                 <UserHome />
+              </UserRoute>
+            }
+          />
+
+          <Route
+            path="/profile"
+            element={
+              <UserRoute>
+                <Profile />
               </UserRoute>
             }
           />

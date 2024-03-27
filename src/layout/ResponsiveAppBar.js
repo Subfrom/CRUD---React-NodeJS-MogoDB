@@ -125,12 +125,12 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            <IconButton>
+            {/* <IconButton>
               <Avatar
                 alt="Remy Sharp"
                 src="https://pbs.twimg.com/profile_images/1643240741987319808/_0UAaeix_400x400.jpg"
               />
-            </IconButton>
+            </IconButton> */}
           </Typography>
           {/* /LOGO */}
 
@@ -203,12 +203,12 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            <IconButton>
+            {/* <IconButton>
               <Avatar
                 alt="Remy Sharp"
                 src="https://pbs.twimg.com/profile_images/1643240741987319808/_0UAaeix_400x400.jpg"
               />
-            </IconButton>
+            </IconButton> */}
           </Typography>
           {/* /LOGO Minimize */}
 
@@ -257,7 +257,7 @@ function ResponsiveAppBar() {
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar
                     alt="Remy Sharp"
-                    src="https://obs.line-scdn.net/0hSo0b4ow9DEANGx4MvxpzFzVNADE-fRZJLy9HcSgYB3EgN0wVZipfIy8fW2wpIksVLXgUciEcWnZzKEoXMA/w1200"
+                    src="https://pbs.twimg.com/profile_images/1643240741987319808/_0UAaeix_400x400.jpg"
                   />
                 </IconButton>
               </Tooltip>
@@ -278,7 +278,14 @@ function ResponsiveAppBar() {
                 onClose={handleCloseUserMenu}
               >
                 {settings.map((setting, index) => (
-                  <MenuItem key={index} onClick={setting.title === "Logout" ? handleLogout :  handleCloseUserMenu}>
+                  <MenuItem
+                    key={index}
+                    onClick={
+                      setting.title === "Logout"
+                        ? handleLogout
+                        : handleCloseUserMenu
+                    }
+                  >
                     <Link to={setting.to} style={{ textDecoration: "none" }}>
                       <Typography textAlign="center">
                         {setting.title}

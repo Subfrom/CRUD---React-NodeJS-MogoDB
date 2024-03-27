@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  value: 'subfrom',
+  value: "DATA FROM REDUX STORE",
   user: []
 }
 
@@ -10,6 +10,7 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     login: (state,action) => {
+      state.value = "Login"
       state.user = action.payload
     },
     logout: (state) => {
