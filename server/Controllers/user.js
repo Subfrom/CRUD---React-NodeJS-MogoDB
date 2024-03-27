@@ -22,3 +22,17 @@ exports.updateRole = async (req, res) => {
         res.status(500).send("Server Error");
     }
 };
+
+exports.updateprofile = async (req, res) => {
+    try{
+        
+        const { id, username } = req.body.data;
+
+        const user = await User.findOneAndUpdate({ _id: id }, { username: username }, { new: true }).select('-password').exec();
+
+        res.send(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
+    }
+}

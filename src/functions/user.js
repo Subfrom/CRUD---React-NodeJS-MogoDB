@@ -12,3 +12,10 @@ export const updateRole = async (authtoken, data) =>
     { data },
     { headers: { authtoken } }
   );
+
+export const Updateprofile = async (authtoken,data) =>
+  await axios.post(
+    process.env.REACT_APP_API + "/updateprofile",
+    { data },
+    { headers: { authtoken } }
+  );

@@ -44,6 +44,7 @@ import Profile from "./components/pages/profile/Profile";
 // Test Redux
 import TestRedux1 from "./components/TestRedux1";
 import TestRedux2 from "./components/TestRedux2";
+import EditProfile from "./components/pages/profile/EditProfile";
 
 
 function App() {
@@ -54,6 +55,7 @@ function App() {
 
   currentUser(IDToken).then((res) => {
     dispatch(login({
+      id: res.data._id,
       email: res.data.email,
       username: res.data.username,
       role: res.data.role,
@@ -105,6 +107,15 @@ function App() {
             element={
               <UserRoute>
                 <Profile />
+              </UserRoute>
+            }
+          />
+
+          <Route
+            path="/profile/edit"
+            element={
+              <UserRoute>
+                <EditProfile />
               </UserRoute>
             }
           />

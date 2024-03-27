@@ -93,7 +93,7 @@ exports.currentUser = async (req, res) => {
         const user = await User.findOne({ email: req.user.email }).select('-password').exec()
 
         if (user) {
-            res.status(200).json({ user: user })
+            res.send(user).status(200)
         } else {
             res.status(400).json({ msg: 'User not found' })
         }
