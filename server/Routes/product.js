@@ -7,7 +7,8 @@ const {
     create,
     update,
     remove,
-    listby
+    listby,
+    checkout
 } = require('../Controllers/product')
 
 const { auth } = require('../Middlewares/auth')
@@ -21,6 +22,7 @@ router.get('/product/:id', read)
 router.post('/product', upload, create)
 router.put('/product/:id', upload, update)
 router.delete('/product/:id', remove)
+router.post('/checkout', auth, checkout)
 
 
 

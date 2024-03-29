@@ -1,3 +1,4 @@
+const { payment } = require('../Functions/Payment');
 const Product = require('../Models/Product')
 const fs = require('fs')
 
@@ -100,6 +101,19 @@ exports.remove = async (req, res) => {
         res.send(removed)
     } catch (err) {
         // error
+        console.log(err)
+        res.status(500).send('Server Error')
+    }
+}
+
+exports.checkout = async (req, res) => {
+    try{
+        const { description, amount } = req.body
+
+        const test = await payment(description, amount);
+
+        return res.json(test)
+    }catch(err){
         console.log(err)
         res.status(500).send('Server Error')
     }
