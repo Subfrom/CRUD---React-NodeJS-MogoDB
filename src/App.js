@@ -45,6 +45,7 @@ import Profile from "./components/pages/profile/Profile";
 import TestRedux1 from "./components/TestRedux1";
 import TestRedux2 from "./components/TestRedux2";
 import EditProfile from "./components/pages/profile/EditProfile";
+import Cart from "./components/pages/profile/Cart";
 
 
 function App() {
@@ -116,6 +117,15 @@ function App() {
             element={
               <UserRoute>
                 <EditProfile />
+              </UserRoute>
+            }
+          />
+
+          <Route
+            path="/cart"
+            element={
+              <UserRoute>
+                <Cart />
               </UserRoute>
             }
           />

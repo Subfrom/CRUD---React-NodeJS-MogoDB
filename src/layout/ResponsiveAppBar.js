@@ -23,21 +23,21 @@ import { useNavigate } from "react-router-dom";
 import { logout } from "../store/userSlice";
 
 const pages = [
-  {
-    title: "Product",
-    icon: "",
-    to: "/product",
-  },
-  {
-    title: "Service",
-    icon: "",
-    to: "/service",
-  },
-  {
-    title: "Contract",
-    icon: "",
-    to: "/contract",
-  }
+  // {
+  //   title: "Product",
+  //   icon: "",
+  //   to: "/product",
+  // },
+  // {
+  //   title: "Service",
+  //   icon: "",
+  //   to: "/service",
+  // },
+  // {
+  //   title: "Contract",
+  //   icon: "",
+  //   to: "/contract",
+  // }
 ];
 
 const authen = [
@@ -86,6 +86,7 @@ function ResponsiveAppBar() {
         navigate("/");
     };
 
+    const { cart } = useSelector((state) => ({ ...state }));
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -249,6 +250,16 @@ function ResponsiveAppBar() {
               ))}
           </Box>
           {/* /Menu Right Full */}
+
+          <Box>
+            <Link to="/cart">
+              <Button
+                sx={{ my: 2, color: "white", mr: 2 }}
+              >
+                Cart {cart.numberCart}
+              </Button>
+            </Link>
+          </Box>
 
           {/* User Menu */}
           {user.user.length !== 0 && (
