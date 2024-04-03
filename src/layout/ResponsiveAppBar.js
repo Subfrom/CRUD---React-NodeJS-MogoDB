@@ -86,7 +86,15 @@ function ResponsiveAppBar() {
         navigate("/");
     };
 
-    const { cart } = useSelector((state) => ({ ...state }));
+    const { cart } = useSelector((state) => state.cart);
+
+    const getTotalQuantity = () => {
+      let total = 0;
+      cart.forEach((item) => {
+        total += item.quantity;
+      });
+      return total;
+    };
 
     const [anchorElNav, setAnchorElNav] = useState(null);
     const [anchorElUser, setAnchorElUser] = useState(null);
@@ -107,210 +115,210 @@ function ResponsiveAppBar() {
     };
 
   return (
-    <AppBar position="static" style={{ backgroundColor: "#3D3B40" }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          {/* LOGO */}
-          {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            {/* <IconButton>
+    <>
+      <AppBar position="static" style={{ backgroundColor: "#3D3B40" }}>
+        <Container maxWidth="xl">
+          <Toolbar disableGutters>
+            {/* LOGO */}
+            {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              {/* <IconButton>
               <Avatar
                 alt="Remy Sharp"
                 src="https://pbs.twimg.com/profile_images/1643240741987319808/_0UAaeix_400x400.jpg"
               />
             </IconButton> */}
-          </Typography>
-          {/* /LOGO */}
+            </Typography>
+            {/* /LOGO */}
 
-          {/* Minimize Menu */}
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
+            {/* Minimize Menu */}
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
 
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page, index) => (
-                <MenuItem key={index} onClick={handleCloseNavMenu}>
-                  <Link to={page.to} style={{ textDecoration: "none" }}>
-                    <Typography textAlign="center">{page.title}</Typography>
-                  </Link>
-                </MenuItem>
-              ))}
-
-              {user.user.length === 0 &&
-                authen.map((page, index) => (
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{
+                  display: { xs: "block", md: "none" },
+                }}
+              >
+                {pages.map((page, index) => (
                   <MenuItem key={index} onClick={handleCloseNavMenu}>
                     <Link to={page.to} style={{ textDecoration: "none" }}>
                       <Typography textAlign="center">{page.title}</Typography>
                     </Link>
                   </MenuItem>
                 ))}
-            </Menu>
-          </Box>
-          {/* /Minimize Menu */}
 
-          {/* LOGO Minimize */}
-          {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            {/* <IconButton>
+                {user.user.length === 0 &&
+                  authen.map((page, index) => (
+                    <MenuItem key={index} onClick={handleCloseNavMenu}>
+                      <Link to={page.to} style={{ textDecoration: "none" }}>
+                        <Typography textAlign="center">{page.title}</Typography>
+                      </Link>
+                    </MenuItem>
+                  ))}
+              </Menu>
+            </Box>
+            {/* /Minimize Menu */}
+
+            {/* LOGO Minimize */}
+            {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              href=""
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              {/* <IconButton>
               <Avatar
                 alt="Remy Sharp"
                 src="https://pbs.twimg.com/profile_images/1643240741987319808/_0UAaeix_400x400.jpg"
               />
             </IconButton> */}
-          </Typography>
-          {/* /LOGO Minimize */}
+            </Typography>
+            {/* /LOGO Minimize */}
 
-          {/* Menu Left Full */}
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page, index) => (
-              <Link to={page.to}>
-                <Button
-                  key={index}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", mr: 5 }}
-                >
-                  {page.title}
-                </Button>
-              </Link>
-            ))}
-          </Box>
-          {/* /Menu Left Full */}
-
-          {/* Menu Right Full */}
-          <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
-            {user.user.length === 0 &&
-              authen.map((page, index) => (
+            {/* Menu Left Full */}
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+              {pages.map((page, index) => (
                 <Link to={page.to}>
                   <Button
                     key={index}
                     onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      color: "white",
-                      mr: 2,
-                    }}
-                    startIcon={page.icon}
+                    sx={{ my: 2, color: "white", mr: 5 }}
                   >
                     {page.title}
                   </Button>
                 </Link>
               ))}
-          </Box>
-          {/* /Menu Right Full */}
-
-          <Box>
-            <Link to="/cart">
-              <Button
-                sx={{ my: 2, color: "white", mr: 2 }}
-              >
-                Cart {cart.numberCart}
-              </Button>
-            </Link>
-          </Box>
-
-          {/* User Menu */}
-          {user.user.length !== 0 && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar
-                    alt="Remy Sharp"
-                    src="https://pbs.twimg.com/profile_images/1643240741987319808/_0UAaeix_400x400.jpg"
-                  />
-                </IconButton>
-              </Tooltip>
-              <Menu
-                sx={{ mt: "45px" }}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                {settings.map((setting, index) => (
-                  <MenuItem
-                    key={index}
-                    onClick={
-                      setting.title === "Logout"
-                        ? handleLogout
-                        : handleCloseUserMenu
-                    }
-                  >
-                    <Link to={setting.to} style={{ textDecoration: "none" }}>
-                      <Typography textAlign="center">
-                        {setting.title}
-                      </Typography>
-                    </Link>
-                  </MenuItem>
-                ))}
-              </Menu>
             </Box>
-          )}
-          {/* /User Menu */}
-        </Toolbar>
-      </Container>
-    </AppBar>
+            {/* /Menu Left Full */}
+
+            {/* Menu Right Full */}
+            <Box sx={{ flexGrow: 0, display: { xs: "none", md: "flex" } }}>
+              {user.user.length === 0 &&
+                authen.map((page, index) => (
+                  <Link to={page.to}>
+                    <Button
+                      key={index}
+                      onClick={handleCloseNavMenu}
+                      sx={{
+                        my: 2,
+                        color: "white",
+                        mr: 2,
+                      }}
+                      startIcon={page.icon}
+                    >
+                      {page.title}
+                    </Button>
+                  </Link>
+                ))}
+            </Box>
+            {/* /Menu Right Full */}
+
+            <Box>
+              <Link to="/cart">
+                <Button sx={{ my: 2, color: "white", mr: 2 }}>
+                  Cart ({getTotalQuantity()})
+                </Button>
+              </Link>
+            </Box>
+
+            {/* User Menu */}
+            {user.user.length !== 0 && (
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Remy Sharp"
+                      src="https://pbs.twimg.com/profile_images/1643240741987319808/_0UAaeix_400x400.jpg"
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  {settings.map((setting, index) => (
+                    <MenuItem
+                      key={index}
+                      onClick={
+                        setting.title === "Logout"
+                          ? handleLogout
+                          : handleCloseUserMenu
+                      }
+                    >
+                      <Link to={setting.to} style={{ textDecoration: "none" }}>
+                        <Typography textAlign="center">
+                          {setting.title}
+                        </Typography>
+                      </Link>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+            )}
+            {/* /User Menu */}
+          </Toolbar>
+        </Container>
+      </AppBar>
+    </>
   );
 }
 export default ResponsiveAppBar;

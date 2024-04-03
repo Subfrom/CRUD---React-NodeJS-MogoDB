@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { removeFromCart } from '../../../store/cartSlice'
+// import { removeFromCart } from '../../../store/cartSlice'
 
 const Cart = () => {
 
@@ -29,14 +29,14 @@ const Cart = () => {
                     {cart.cart.map((item, index) => (
                     <tr key={index}>
                         <td>
-                        <button
+                        {/* <button
                             className="btn btn-danger"
                             onClick={() => {
                             dispatch(removeFromCart(item));
                             }}
                         >
                             X
-                        </button>
+                        </button> */}
                         </td>
                         <td>{item.name}</td>
                         <td>

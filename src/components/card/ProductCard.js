@@ -19,7 +19,6 @@ const ProductCard = ({data}) => {
   const handleAddToCart = (product) => {
     // console.log(product);
     dispatch(addToCart(product));
-    localStorage.setItem("cart", JSON.stringify(cart));
   };
 
   let actions;
