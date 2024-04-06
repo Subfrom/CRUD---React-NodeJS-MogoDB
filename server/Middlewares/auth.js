@@ -15,7 +15,7 @@ exports.auth = async (req, res, next) => {
     }
     catch (err) {
         // error
-        console.log(err)
+        // console.log(err)
         res.status(500).send('Server Error')
     }
 }

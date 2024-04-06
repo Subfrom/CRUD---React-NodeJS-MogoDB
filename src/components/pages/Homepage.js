@@ -2,6 +2,7 @@ import React from 'react'
 import ProductNew from '../home/ProductNew'
 
 const Homepage = () => {
+
   return (
     <>
     {/* New Product */}

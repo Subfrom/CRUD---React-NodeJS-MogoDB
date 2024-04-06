@@ -260,17 +260,15 @@ function ResponsiveAppBar() {
             </Box>
             {/* /Menu Right Full */}
 
-            <Box>
-              <Link to="/cart">
-                <Button sx={{ my: 2, color: "white", mr: 2 }}>
-                  Cart ({getTotalQuantity()})
-                </Button>
-              </Link>
-            </Box>
 
             {/* User Menu */}
             {user.user.length !== 0 && (
               <Box sx={{ flexGrow: 0 }}>
+              <Link to="/cart">
+                <Button sx={{ my: 2, color: "white", mr: 2 }}>
+                  Cart {getTotalQuantity()}
+                </Button>
+              </Link>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                     <Avatar

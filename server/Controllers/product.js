@@ -1,5 +1,6 @@
 const { payment } = require('../Functions/Payment');
 const Product = require('../Models/Product')
+const Order = require('../Models/Order')
 const fs = require('fs')
 
 
@@ -108,12 +109,24 @@ exports.remove = async (req, res) => {
 
 exports.checkout = async (req, res) => {
     try{
-        const { description, amount } = req.body
+        const { user, products, total } = req.body
 
-        const test = await payment(description, amount);
+        const newOrder = new Order({
+          user: user,
+          orderItems: products,
+          total,
+        });
 
-        return res.json(test)
-    }catch(err){
+        const savedOrder = await newOrder.save()
+
+        const orderID = savedOrder._id
+        const amount = total
+
+        await payment( user, orderID, amount, res).catch((error) => {
+            console.log(error)
+            res.status(500).send('Server Error')
+        })
+    } catch (err) {
         console.log(err)
         res.status(500).send('Server Error')
     }
