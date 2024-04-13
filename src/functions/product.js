@@ -16,8 +16,8 @@ export const listby = async (limit, sort, order) =>
         order
     })
 
-export const GetData = async () => {
-   return await axios.get(process.env.REACT_APP_API + '/product')
+export const GetData = async (start, length, search) => {
+    return await axios.get(`${process.env.REACT_APP_API}/product?start=${start}&length=${length}&search=${search}`)
 }
 
 export const Read = async (id) => {

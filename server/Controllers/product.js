@@ -19,15 +19,32 @@ exports.read = async (req, res) => {
 
 exports.list = async (req, res) => {
     try {
-        // code
-        const producted = await Product.find({}).exec();
-        res.send(producted)
+        const { start, length, search } = req.query;
+        let query = {};
+        if (search) {
+            query = {
+                $or: [
+                    { name: { $regex: search, $options: 'i' } },
+                    { detail: { $regex: search, $options: 'i' } },
+                ],
+            };
+        }
+        const recordsTotal = await Product.countDocuments({}).exec();
+        const recordsFiltered = await Product.countDocuments(query).exec();
+        const producted = await Product.find(query)
+            .skip(Number(start))
+            .limit(Number(length))
+            .exec();
+        res.json({
+            recordsTotal,
+            recordsFiltered,
+            data: producted,
+        });
     } catch (err) {
-        // error
-        console.log(err)
-        res.status(500).send('Server Error')
+        console.log(err);
+        res.status(500).send('Server Error');
     }
-}
+};
 exports.listby = async (req, res) => {
     try {
         // code
